@@ -12,7 +12,7 @@
             <div>
                 <h2>ID #{{ $task->id }} - {{ $task->title }}</h2>
                 <button type="button">
-                    <a href="{{ route('taskdetails.show', [ 'id' => $task->id ]) }}">Task details</a>
+                    <a href="{{ route('task.show', [ 'id' => $task->id ]) }}">Task details</a>
                 </button>
                 @if ($task->completed)
                     <p>Status: Completed</p>

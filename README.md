@@ -3,12 +3,12 @@
 - composer create-project laravel/laravel basic-todo-list-app
 - php artisan key:generate --ansi
 - php artisan serve
+- php artisan route:list
 - php artisan cache:clear 
 
-
+Run docker 
 - docker compose up
-
-once docker is running close the project and run
+Once docker DB is running
 - php artisan migrate
 
 As we need the model of a task and to be able to connect the model with the view we need to create the model and include its migration to the data base. so, run

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Error404Controller;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,9 +72,15 @@ Route::get('/task', function () use($tasks) {
     return view('main', ['tasks' => \App\Models\Task::latest()->where('completed', true)->get()]);
 })->name('main');
 
+Route::view('/task/create', 'task.create')->name('task.create');
+
 Route::get('/task/{id}', function ($id) {
-    return view('taskdetails.show', ['task' => \App\Models\Task::findOrFail($id)]);
-})->name('taskdetails.show');
+    return view('task.show', ['task' => \App\Models\Task::findOrFail($id)]);
+})->name('task.show');
+
+Route::post('/task', function(Request $request) {
+    dd($request->all());
+})->name('task.store');
 
 Route::get('/about', function () {
     return view('about.index');
