@@ -32,3 +32,13 @@ ONLY RUN IT ON DEVELOPMENT ENV
 php artisan migrate:refresh --seed
 
 
+Modified the query builders on web.php after hitting the DB
+php artisan tinker lets us runn the queries on the web.php file
+for example
+\App\Models\Task::findOrFail(2);
+\App\Models\Task::select('id', 'title')->where('completed'
+, true)->get();
+\App\Models\Task::all();
+type exit to exit tinker
+
+

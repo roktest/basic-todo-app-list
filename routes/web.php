@@ -69,15 +69,11 @@ $tasks = [
 ];
 
 Route::get('/task', function () use($tasks) {
-    return view('main', ['tasks' => $tasks]);
+    return view('main', ['tasks' => \App\Models\Task::latest()->where('completed', true)->get()]);
 })->name('main');
 
-Route::get('/task/{id}', function ($id) use($tasks) {
-    $task = collect($tasks)->firstWhere('id', $id);
-    if (!$task) {
-        return (new Error404Controller)->error404();
-    }
-    return view('taskdetails.show', ['task' => $task]);
+Route::get('/task/{id}', function ($id) {
+    return view('taskdetails.show', ['task' => \App\Models\Task::findOrFail($id)]);
 })->name('taskdetails.show');
 
 Route::get('/about', function () {
