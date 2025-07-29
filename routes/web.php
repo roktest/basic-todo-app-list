@@ -69,7 +69,7 @@ $tasks = [
 ];
 
 Route::get('/task', function () use($tasks) {
-    return view('main', ['tasks' => \App\Models\Task::latest()->where('completed', true)->get()]);
+    return view('main', ['tasks' => \App\Models\Task::latest()->where('completed', false)->get()]);
 })->name('main');
 
 Route::view('/task/create', 'task.create')->name('task.create');
@@ -79,7 +79,23 @@ Route::get('/task/{id}', function ($id) {
 })->name('task.show');
 
 Route::post('/task', function(Request $request) {
-    dd($request->all());
+    //dd($request->all());
+    $data = $request->validate([
+        'title' => 'required|string|min:5|max:255',
+        'description' => 'nullable|string|max:1000',
+        'long_description' => 'nullable|string|max:2000'
+    ]);
+
+    $task = new \App\Models\Task();
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->completed = false; // Default value
+
+    $task->save();
+
+    return redirect()->route('task.show', ['id' => $task->id]);
+  
 })->name('task.store');
 
 Route::get('/about', function () {
