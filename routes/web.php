@@ -52,7 +52,7 @@ $tasks = [
     3,
     'Learn programming',
     'Task 3 description',
-    'Task 3 long description',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     true,
     '2023-03-03 12:00:00',
     '2023-03-03 12:00:00'
@@ -68,11 +68,11 @@ $tasks = [
   ),
 ];
 
-Route::get('/', function () use($tasks) {
+Route::get('/task', function () use($tasks) {
     return view('main', ['tasks' => $tasks]);
 })->name('main');
 
-Route::get('/{id}', function ($id) use($tasks) {
+Route::get('/task/{id}', function ($id) use($tasks) {
     $task = collect($tasks)->firstWhere('id', $id);
     if (!$task) {
         return (new Error404Controller)->error404();
