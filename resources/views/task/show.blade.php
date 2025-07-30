@@ -46,6 +46,10 @@
     <small><b>Updated at</b> {{$task->updated_at}}</small>
     <br><br>
     <button type="button">
+        <a href="{{ route('task.edit', ['id' => $task->id]) }}">Edit Task</a>
+    </button>
+    <br><br>
+    <button type="button">
         <a href="{{ route('main') }}">Back to task list</a>
     </button>
 @endsection

@@ -74,6 +74,27 @@ Route::get('/task', function () use($tasks) {
 
 Route::view('/task/create', 'task.create')->name('task.create');
 
+Route::get('/task/edit/{id}', function ($id) {
+    $task = \App\Models\Task::findOrFail($id);
+    return view('task.edit', ['task' => $task]);
+})->name('task.edit');
+
+Route::put('/task/edit/{id}', function(Request $request, $id) {
+    $data = $request->validate([
+        'title' => 'required|string|min:5|max:255',
+        'description' => 'nullable|string|max:1000',
+        'long_description' => 'nullable|string|max:2000'
+    ]);
+
+    $task = \App\Models\Task::findOrFail($id);
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save();
+
+    return redirect()->route('task.show', ['id' => $task->id])->with('success', 'Task updated successfully!');
+})->name('task.update');
+
 Route::get('/task/{id}', function ($id) {
     return view('task.show', ['task' => \App\Models\Task::findOrFail($id)]);
 })->name('task.show');

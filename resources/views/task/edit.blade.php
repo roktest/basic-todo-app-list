@@ -4,7 +4,7 @@
     <style>
         .error {
             color: red;
-            font-size: 0, 8rem;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
             margin-bottom: 0.5rem;
             padding: 0.5rem;
@@ -28,16 +28,16 @@
 @endsection
 
 @section('title')
-    <h1>ToDo List App - Create a new task</h1>
+    <h1>ToDo List App - Edit Task</h1>
 @endsection
 
 @section('content')
-    <form action="{{ route('task.store') }}" method="POST">
+    <form action="{{ route('task.update', ['id' => $task->id]) }}" method="POST">
         @csrf
-        <!-- CSRF cross site request forgery token for security -->
+        @method('PUT')
         <div>
             <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title" rows="5" required value="{{ old('title') }}">
+            <input type="text" id="title" name="title" value="{{ old('title', $task->title) }}" required >
             @error('title')
                 <div class="error">
                     {{ $message }}
@@ -46,7 +46,7 @@
         </div>
         <div>
             <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="3" required>{{ old('description') }}</textarea>
+            <textarea id="description" name="description" rows="3" required>{{ old('description', $task->description) }}</textarea>
             @error('description')
                 <div class="error">
                     {{ $message }}
@@ -54,8 +54,8 @@
             @enderror
         </div>
         <div>
-            <label for="long_description">Description:</label><br>
-            <textarea id="long_description" name="long_description" rows="10" required>{{ old('long_description') }}</textarea>
+            <label for="long_description">Long Description:</label><br>
+            <textarea id="long_description" name="long_description" rows="10">{{ old('long_description', $task->long_description) }}</textarea>
             @error('long_description')
                 <div class="error">
                     {{ $message }}
@@ -63,10 +63,10 @@
             @enderror
         </div>
         <div>
-            <button type="submit">Create Task</button>
+            <button type="submit">Update Task</button>
         </div>
     </form>
-    <br>
+    <br><br>
     <button type="button">
         <a href="{{ route('main') }}">Back to task list</a>
     </button>
