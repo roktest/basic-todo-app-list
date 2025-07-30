@@ -1,7 +1,35 @@
 @extends('commonLayouts.app')
 
+@section('style')
+    <style>
+        .error {
+            color: red;
+            font-size: 0, 8rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid red;
+            background-color: #ffebee;
+            border-radius: 5px;
+            width: fit-content;
+        }
+        .success {
+            color: blue;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid blue;
+            background-color: #e0f7fa;
+            border-radius: 5px;
+            width: fit-content;
+        }
+    </style>
+@endsection
+
 @section('title')
-    <h1>Task ID #{{$task->id}}, {{$task->title}}</h1>
+    <h1>ToDo List App - Task details</h1>
+    <h2>Task ID #{{$task->id}}, {{$task->title}}</h2>
 @endsection
 
 @section('content')
